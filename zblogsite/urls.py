@@ -17,7 +17,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('',
     # Examples:
-    url(r'^blog/', include('zblog.urls')),
+    url(r'^$', include('zblog.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     # Uncomment the next line to enable the admin:
