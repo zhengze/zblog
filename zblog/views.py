@@ -1,15 +1,14 @@
-# Create your views here.
-from django.http import HttpResponse
-from django.template.loader import get_template
-from django.template import Context
-import datetime
+#coding:utf8
 
-def index(request):
-    now = datetime.datetime.now()
-    html = "<html><body>It is now %s.</body></html>"%now
-    t = get_template("zblog/index.html")
-    html = t.render(Context({'current_time':now}))
-    return HttpResponse(html)
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.views import generic
+from .models import Article
+
+class IndexView(generic.ListView):
+    model = Article
+    template_name = 'zblog/index.html'
 
 def hello(request):
     return HttpResponse("hello world")
