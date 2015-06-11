@@ -1,8 +1,7 @@
 from django.conf.urls import patterns, include, url
-import os
-from zblog.views import *
+from . import views
 
 urlpatterns = patterns('',
-    url(r'^$', index),    
-    url('^hello/$', hello),     
+    url(r'^$', views.IndexView.as_view(), name='index'),    
+    url('^hello/$', views.hello),     
 )
