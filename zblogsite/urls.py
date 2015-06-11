@@ -1,8 +1,6 @@
 from django.conf.urls import patterns, include, url
 import os
-import settings
-from zblog.views import *
-import zblog
+from zblogsite import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -19,7 +17,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('',
     # Examples:
-    url(r'^blog/', include(zblog.urls)),
+    url(r'^blog/', include('zblog.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     # Uncomment the next line to enable the admin:
