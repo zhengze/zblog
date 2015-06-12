@@ -9,7 +9,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -18,7 +18,7 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -61,6 +61,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR, 'static').replace('\\', '/'),
 )
 
 # List of finder classes that know how to find static files in
@@ -101,7 +102,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     
-    os.path.join(os.path.dirname(__file__), 'templates').replace('\\', '/'),
+    os.path.join(BASE_DIR, 'templates').replace('\\', '/'),
 )
 
 INSTALLED_APPS = (
