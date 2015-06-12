@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% load url from future %}
+{% load staticfiles %}
 <html lang="zh-cn">
   <head>
     <meta charset="utf-8">
@@ -7,34 +9,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>村民记忆</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
     <style type="text/css">
-        body{padding-top: 80px;}
-        .footer{text-align: center;bottom:10px;}
-
+        body{
+            padding-top: 80px;
+        }
+        .footer{
+            text-align: center;
+            bottom:10px;
+        }
+        #topcontrol{
+            background: #a2b9ca;
+            position: fixed;
+            cursor: pointer;
+            bottom: 80px;
+            right:30px;
+            opacity: 1;
+            display: block;
+            width: 50px;
+            height: 50px;
+        }
+        .up{
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 30px solid #FFFFFF;
+            top: 8px;
+            left: 4px;
+        }
+        .navbar-fixed-top{
+            /*background: #a2b9ca;*/
+        }
     </style>
 
   </head>
   <body>
  
   <div class="container">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id='navbar'>
       <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'index' %}">
               <b>村民记忆</b>
             </a>
           </div>
-
-          <div class="navbar-collapse bs-navbar-collapse">
+            {% block 'navigation' %}
+          <div class="navbar-collapse bs-navbar-collapse" role="navigation">
               <ul class="nav navbar-nav" role="tablist">
-                <li role="presentation" class="active"><a href="#">首页</a></li>
-                <li role="presentation"><a href="#">技术</a></li>
-                <li role="presentation"><a href="#">随笔</a></li>
+                <li role="presentation" class="active"><a href="{% url 'index' %}">首页</a></li>
+                <li role="presentation"><a href="{% url 'article' %}">博文</a></li>
                 <li role="presentation"><a href="#">光影</a></li>
+                <li role="presentation"><a href="#">音乐</a></li>
                 <li role="presentation"><a href="#">个人简介</a></li>
               </ul>
               <form class="navbar-form pull-right" method="get" action="/">
@@ -42,6 +72,7 @@
                   <button type="submit" class="btn btn-default">搜索</button>
               </form>
           </div>
+            {% endblock %}
           
       </div>
     </nav>
@@ -56,14 +87,14 @@
 	      <!-- Default panel contents -->
 	      <div class="panel-heading">博主介绍</div>
 	      <div class="panel-body" style="text-align:center">
-          <img src="/images/zhanghai.jpg" class="img-responsive" alt="Responsive image" width="120" height="90px" style="margin-left:50px;"> 
-	        <p>{{ current_time }}</p>
+          <img src="{% static 'images/zhanghai.jpg' %}" class="img-responsive" alt="Responsive image" width="120" height="90px" style="margin-left:50px;"> 
+	        <p>张海</p>
 	      </div>
 	    </div>
 
 	    <div class="panel panel-default">
 	      <!-- Default panel contents -->
-	      <div class="panel-heading">Panel heading1</div>
+	      <div class="panel-heading">文章排名</div>
 	      <div class="panel-body">
 	        <p>...</p>
 	      </div>
@@ -71,7 +102,7 @@
 
 	    <div class="panel panel-default">
 	      <!-- Default panel contents -->
-	      <div class="panel-heading">Panel heading2</div>
+	      <div class="panel-heading">最新发表</div>
 	      <div class="panel-body">
 
 	      	<br/>
@@ -89,11 +120,14 @@
 
 </div>
 
+    <hr/>
 <div class="container">
-  <footer class="footer">
-    <p>Made by zhengze @2014
-
-  </footer>
+    <footer class="footer">
+        <p>Made by zhengze @2014</p>
+    </footer>
+</div>
+<div id="topcontrol">
+    <div class="up"></div>
 </div>
 
 </body>
