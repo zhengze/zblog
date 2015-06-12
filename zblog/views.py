@@ -5,10 +5,17 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from .models import Article
+from django.shortcuts import render_to_response
 
+def index(request):
+    return render_to_response('zblog/index.html')
 class IndexView(generic.ListView):
     model = Article
     template_name = 'zblog/index.html'
+
+class ArticleView(generic.ListView):
+    model = Article
+    template_name = 'zblog/article.html'
 
 def hello(request):
     return HttpResponse("hello world")
