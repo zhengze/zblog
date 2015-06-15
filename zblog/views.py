@@ -17,6 +17,15 @@ class ArticleView(generic.ListView):
     model = Article
     template_name = 'zblog/article.html'
 
-def hello(request):
-    return HttpResponse("hello world")
+class PictureView(generic.ListView):
+    model = Article
+    template_name = 'zblog/picture.html'
+
+class MusicView(generic.ListView):
+    model = Article
+    template_name = 'zblog/music.html'
+
+class AboutView(generic.ListView):
+    model = Article
+    template_name = 'zblog/aboutme.html'
 
