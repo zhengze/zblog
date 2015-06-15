@@ -1,0 +1,28 @@
+body{
+    padding-top: 80px;
+}
+.footer{
+    text-align: center;
+    bottom:10px;
+}
+#topcontrol{
+    background: #a2b9ca;
+    position: fixed;
+    cursor: pointer;
+    bottom: 80px;
+    right:30px;
+    opacity: 1;
+    display: block;
+    width: 50px;
+    height: 50px;
+}
+.up{
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 30px solid #FFFFFF;
+    top: 8px;
+    left: 4px;
+}
