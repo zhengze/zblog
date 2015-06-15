@@ -1,12 +1,19 @@
 $(document).ready(function(){
-    function topscroll(){
+    $(function(){
         $(window).scroll(function(){
-        if($(window).scrollTop()>100){
-            $("#topcontrol").fadeIn(1500);
-        }
-        else{
-            $("#topcontrol").fadeOut(1500);
-        }
-    }
-    topscroll();
+            if($(window).scrollTop()>100){
+                $("#topcontrol").fadeIn(1500);
+            }
+            else{
+                $("#topcontrol").fadeOut(1500);
+            }
+        });
+    });
+    $("#topcontrol").on("click", function(){
+        $("body,html").animate({
+            scrollTop:0
+        },
+        500);
+        return false;
+    });
 });
