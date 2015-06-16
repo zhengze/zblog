@@ -1,5 +1,16 @@
 {% extends "zblog/base.html" %}
 {% block content %}
-index
-<hr/>
+    <div>
+    {% if article %}
+        {% for a in article %}
+            <div>
+                {{ a.title }}
+                <hr/>
+                分类:{{a.classify}} 标签:{{a.tag}} 发表时间:{{a.created_time}}<br/><br/>
+                {{ a.content }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+
 {% endblock %}
