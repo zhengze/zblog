@@ -3,7 +3,7 @@
 {% block classify %}
     <ul>
     {% for cf in classifies %}
-        <li><a href="">{{cf}}</a></li>
+        <li><a href="{% url 'article_classification' cf.id %}">{{cf}}</a></li>
     {% endfor %}
     </ul>
 {% endblock %}
