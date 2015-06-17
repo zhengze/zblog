@@ -1,0 +1,22 @@
+{% extends "zblog/index.html" %}
+
+{% block content %}
+
+    <div>
+    {% if article_list %}
+        {% for a in article_list %}
+            <div>
+                <h3>{{ a.title }}</h3>
+                <hr/>
+                分类:<a href="">{{a.classify}}</a> 标签:{{a.tag}} 发表时间:{{a.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
+           
+                <p>{{a.content}}</p>
+              
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    </div>
+
+{% endblock %}
+    
