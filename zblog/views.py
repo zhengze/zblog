@@ -13,7 +13,7 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['classifies'] = Classify.objects.all()
-        return context
+        return context       
 
 class ArticleView(ListView):
     model = Article
@@ -29,6 +29,20 @@ class ArticleDetailView(ListView):
         return context
     def get_queryset(self):
         return Article.objects.filter(pk=self.args[0])
+
+class ArticleClassificationView(ListView):
+    model = Classify
+    context_object_name = 'article_list'
+    template_name = 'zblog/article_classification.html'    
+    paginate_by = 10
+    def get_context_data(self, **kwargs):
+        context = super(ArticleClassificationView, self).get_context_data(**kwargs)
+        context['classifies'] = Classify.objects.all()
+        return context
+    def get_queryset(self):
+        classification = Classify.objects.get(pk=self.args[0])
+        return classification.article_set.all()
+
 
 class PictureView(ListView):
     model = Article
