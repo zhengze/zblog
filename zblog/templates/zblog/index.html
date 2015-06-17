@@ -10,14 +10,14 @@
 {% block content %}
 
     <div>
-    {% if article %}
-        {% for a in article %}
+    {% if article_list %}
+        {% for a in article_list %}
             <div>
-                <a href="">{{ a.title }}</a>
+                <h3><a href="{% url 'article_detail' a.id %}">{{ a.title }}</a></h3>
                 <hr/>
-                分类:<a href="">{{a.classify}}</a> 标签:{{a.tag}} 发表时间:{{a.created_time}}<br/><br/>
+                分类:<a href="">{{a.classify}}</a> 标签:{{a.tag}} 发表时间:{{a.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
            
-                <p>{{a.content}}</p>
+                <p>{{a.content|truncatechars:50}}</p>
               
             </div>
         {% endfor %}
