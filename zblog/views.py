@@ -17,8 +17,14 @@ class IndexView(ListView):
 
 class ArticleView(ListView):
     model = Article
+    context_object_name = 'article_list'
     template_name = 'zblog/article.html'
-
+    paginate_by = 10
+    def get_context_data(self, **kwargs):
+        context = super(ArticleView, self).get_context_data(**kwargs)
+        context['classifies'] = Classify.objects.all()
+        return context
+        
 class ArticleDetailView(ListView):
     model = Article
     context_object_name = 'article_list'

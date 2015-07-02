@@ -1,8 +1,8 @@
 # Create your views here.
 from django.http import HttpResponse
-from django.template.loader import get_template
+from django.template.loader import get_template
 from django.template import Context
-import datetime
+import datetime
 
 def index(request):
     now = datetime.datetime.now()

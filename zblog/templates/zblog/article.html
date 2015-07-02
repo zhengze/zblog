@@ -1,4 +1,4 @@
-{% extends "zblog/base.html" %}
+{% extends "zblog/index.html" %}
 
 {% block 'navigation' %}
 <div class="navbar-collapse bs-navbar-collapse" role="navigation">
@@ -16,6 +16,36 @@
 </div>
 {% endblock %}
 {% block content %}
-article
-<hr/>
+ <div>
+    {% if article_list %}
+        {% for a in article_list %}
+            <div>
+                <h3><a href="{% url 'article_detail' a.id %}">{{ a.title }}</a></h3>
+                <hr/>
+                分类:<a href="">{{a.classify}}</a> 标签:{{a.tag}} 发表时间:{{a.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
+           
+                <p>{{a.content|truncatechars:50}}</p>
+              
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <ul class="pagination">
+        <li><a href="{{ request.path }}?page=1">«</a></li>
+          {% if page_obj.has_previous %}
+            <li><a href="{{ request.path }}?&page={{ page_obj.previous_page_number }}">上一页</a></li>
+          {% else %}
+            <li class="previous disabled"><a>上一页</a></li>
+          {% endif %}
+          {% for i in page_obj.paginator.page_range %}
+            <li {% if page_obj.number == i %}class="active"{% endif %}><a href="{{ request.path }}?page={{ i }}">{{ i }}</a></li>
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li><a href="{{ request.path }}?page={{ page_obj.next_page_number }}">下一页</a></li>
+          {% else %}
+            <li class="previous disabled"><a>下一页</a></li>
+          {% endif %}
+          <li><a href="{{ request.path }}?page={{ page_obj.paginator.num_pages }}">»</a></li>
+    </ul>
+    </div>
 {% endblock %}
