@@ -16,7 +16,7 @@ class Article(models.Model):
     created_time = models.DateTimeField()
     classify = models.ForeignKey(Classify)
     tag = models.ForeignKey(Tag)
-    #hits = models.IntegerField(max_length=1,null =False, blank=False,default=0)
+    hits = models.IntegerField(default=0)
     
     class Meta:
         ordering = ['-created_time']
