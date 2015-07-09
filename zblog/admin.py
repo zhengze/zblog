@@ -7,5 +7,5 @@ class ArticleAdmin(admin.ModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Classify)
 admin.site.register(Tag)
-admin.site.register(Image)
-admin.site.register(ImageClassify)
+admin.site.register(Photo)
+admin.site.register(PhotoClassify)
