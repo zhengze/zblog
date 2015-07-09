@@ -17,6 +17,7 @@ class Article(models.Model):
     classify = models.ForeignKey(Classify)
     tag = models.ForeignKey(Tag)
     hits = models.IntegerField(max_length=1, default=0)
+
     
     class Meta:
         ordering = ['-created_time']
@@ -34,5 +35,3 @@ class Photo(models.Model):
     photo_classify = models.ForeignKey(PhotoClassify)
     def __unicode__(self):
         return self.description
-
-
