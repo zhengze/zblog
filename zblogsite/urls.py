@@ -21,5 +21,6 @@ urlpatterns += patterns('',
     #url(r'css/(?P<path>[\w\.\-]+\.css)$', 'django.views.static.serve',{'document_root':os.path.join(os.path.dirname(__file__),"./static/css")},name='css'),
     #url(r'images/(?P<path>[\w+.\-]+\.*)$', 'django.views.static.serve',{'document_root':os.path.join(os.path.dirname(__file__),"./static/images/")},name='images'),
     #url(r'fonts/(?P<path>[\w+.\-]+\.*)$', 'django.views.static.serve',{'document_root':os.path.join(os.path.dirname(__file__),"./static/fonts/")},name='fonts'),
-)+static(settings.base.STATIC_URL,document_root=settings.base.STATIC_ROOT)
-
+)
+urlpatterns+static(settings.base.STATIC_URL,document_root=settings.base.STATIC_ROOT)
+urlpatterns+static(settings.base.MEDIA_URL,document_root=settings.base.MEDIA_ROOT)
