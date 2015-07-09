@@ -3,7 +3,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView
-from .models import Article, Classify
+from .models import Article, Classify, Photo, PhotoClassify
 
 class IndexView(ListView):
     model = Article
@@ -17,8 +17,14 @@ class IndexView(ListView):
 
 class ArticleView(ListView):
     model = Article
+    context_object_name = 'article_list'
     template_name = 'zblog/article.html'
-
+    paginate_by = 10
+    def get_context_data(self, **kwargs):
+        context = super(ArticleView, self).get_context_data(**kwargs)
+        context['classifies'] = Classify.objects.all()
+        return context
+        
 class ArticleDetailView(ListView):
     model = Article
     context_object_name = 'article_list'
@@ -28,6 +34,9 @@ class ArticleDetailView(ListView):
         context['classifies'] = Classify.objects.all()
         return context
     def get_queryset(self):
+        article = Article.objects.get(pk=self.args[0])
+        article.hits += 1
+        article.save()
         return Article.objects.filter(pk=self.args[0])
 
 class ArticleClassificationView(ListView):
@@ -44,9 +53,14 @@ class ArticleClassificationView(ListView):
         return classification.article_set.all()
 
 
-class PictureView(ListView):
-    model = Article
-    template_name = 'zblog/picture.html'
+class PhotoView(ListView):
+    model = Photo
+    context_object_name = 'photo_list'
+    template_name = 'zblog/photos.html'
+    def get_context_data(self, **kwargs):
+        context = super(PhotoView, self).get_context_data(**kwargs)
+        context['photo_classifies'] = PhotoClassify.objects.all()
+        return context
 
 class MusicView(ListView):
     model = Article
