@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse
 from django.db.models import F, Count
 from django.views.generic import ListView
-from .models import Article, Classify, Photo, PhotoClassify
+from .models import Article, Classify, Photo, Album
 
 class IndexView(ListView):
     model = Article
@@ -68,11 +68,18 @@ class ArticleClassificationView(IndexView):
         classification = Classify.objects.get(pk=self.args[0])
         return classification.article_set.all()
 
+class AlbumView(IndexView):
+    template_name = 'zblog/album.html'
+    model = Album
+    context_object_name = 'album_list'
 
 class PhotoView(IndexView):
     template_name = 'zblog/photos.html'
     model = Photo
-    #context_object_name = 'photo_list'
+    context_object_name = 'photo_list'
+    def get_queryset(self):
+        album = Album.objects.get(pk=self.args[0])
+        return album.photo_set.all()
     #def get_context_data(self, **kwargs):
     #    context = super(PhotoView, self).get_context_data(**kwargs)
     #    context['photo_classifies'] = PhotoClassify.objects.all()
