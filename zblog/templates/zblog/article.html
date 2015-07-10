@@ -5,7 +5,7 @@
   <ul class="nav navbar-nav" role="tablist">
     <li role="presentation"><a href="{% url 'index' %}">首页</a></li>
     <li role="presentation" class="active"><a href="{% url 'article' %}">博文</a></li>
-    <li role="presentation"><a href="{% url 'photos' %}">光影</a></li>
+    <li role="presentation"><a href="{% url 'album' %}">光影</a></li>
     <li role="presentation"><a href="{% url 'music' %}">音乐</a></li>
     <li role="presentation"><a href="{% url 'about' %}">个人简介</a></li>
   </ul>
@@ -23,9 +23,9 @@
                 <h3><a href="{% url 'article_detail' a.id %}">{{ a.title }}</a></h3>
                 <hr/>
 
-                |分类:<a href="">{{a.classify}}</a> |标签:{{a.tag}} |阅读:({{a.hits}}) |发表时间:{{a.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
+                |分类:<a href="{% url 'article_classification' a.classify.id %}">{{a.classify}}</a> |标签:{{a.tag}} |阅读:({{a.hits}}) |发表时间:{{a.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
 
-                <p>{{a.content|truncatechars:50}}</p>
+                <p>{{a.content|truncatechars:100}}</p>
               
             </div>
         {% endfor %}
