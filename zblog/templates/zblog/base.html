@@ -31,7 +31,7 @@
               <ul class="nav navbar-nav" role="tablist">
                 <li role="presentation" class="active"><a href="{% url 'index' %}">首页</a></li>
                 <li role="presentation"><a href="{% url 'article' %}">博文</a></li>
-                <li role="presentation"><a href="{% url 'photos' %}">光影</a></li>
+                <li role="presentation"><a href="{% url 'album' %}">光影</a></li>
                 <li role="presentation"><a href="{% url 'music' %}">音乐</a></li>
                 <li role="presentation"><a href="{% url 'about' %}">个人简介</a></li>
               </ul>
@@ -72,7 +72,7 @@
 
 	    <div class="panel panel-primary">
 	      <!-- Default panel contents -->
-	      <div class="panel-heading">热文</div>
+	      <div class="panel-heading">热门文章</div>
 	      <div class="panel-body">
                     {% block hot_article %}
                         <ul>
