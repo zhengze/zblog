@@ -24,14 +24,15 @@ class Article(models.Model):
     def __unicode__(self):
         return self.title
 
-class PhotoClassify(models.Model):
+class Album(models.Model):
     name = models.CharField(max_length=50)
+    cover = models.ImageField(upload_to='images/covers/%Y/%m/%d', null=True, blank=True)
     def __unicode__(self):
         return self.name    
 
 class Photo(models.Model):
     photo = models.ImageField(upload_to='images/%Y/%m/%d')
     description = models.CharField(max_length=255, null=True)
-    photo_classify = models.ForeignKey(PhotoClassify)
+    album = models.ForeignKey(Album)
     def __unicode__(self):
         return self.description
