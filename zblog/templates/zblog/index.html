@@ -1,13 +1,6 @@
 {% extends "zblog/base.html" %}
 {% load staticfiles %}
 
-{% block classify %}
-    <ul>
-    {% for cf in classifies %}
-        <li><a href="{% url 'article_classification' cf.id %}">{{cf}}</a></li>
-    {% endfor %}
-    </ul>
-{% endblock %}
 {% block content %}
 
     <div>
@@ -16,7 +9,7 @@
             <div>
                 <h3><a href="{% url 'article_detail' a.id %}">{{ a.title }}</a></h3>
                 <hr/>
-                分类:<a href="">{{a.classify}}</a> 标签:{{a.tag}} 发表时间:{{a.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
+                |分类:<a href="">{{a.classify}}</a> |标签:{{a.tag}} |阅读:({{a.hits}}) |发表时间:{{a.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
            
                 <p>{{a.content|truncatechars:50}}</p>
               
