@@ -17,6 +17,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('',
     #url(r'^static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.base.STATIC_ROOT },name='static'),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.base.MEDIA_ROOT },name='media'),
     #url(r'js/(?P<path>[\w\.\-]+\.js)$', 'django.views.static.serve',{'document_root':os.path.join(os.path.dirname(__file__),"./static/js")},name='js'),
     #url(r'css/(?P<path>[\w\.\-]+\.css)$', 'django.views.static.serve',{'document_root':os.path.join(os.path.dirname(__file__),"./static/css")},name='css'),
     #url(r'images/(?P<path>[\w+.\-]+\.*)$', 'django.views.static.serve',{'document_root':os.path.join(os.path.dirname(__file__),"./static/images/")},name='images'),
