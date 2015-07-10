@@ -58,19 +58,29 @@
 	    </div>
 	    <div class="panel panel-primary">
 	      <!-- Default panel contents -->
-	      <div class="panel-heading">标签</div>
-	      <div class="panel-body">
-        {% block classify %}
-        {% endblock %}
-	      </div>
+                  <div class="panel-heading">文章分类</div>
+                  <div class="panel-body">
+                        {% block classify %}
+                            <ul>
+                            {% for cf in classifies %}
+                                <li><a href="{% url 'article_classification' cf.id %}">{{cf}}({{cf.article_count}})</a></li>
+                            {% endfor %}
+                            </ul>
+                        {% endblock %}
+                  </div>
 	    </div>
 
 	    <div class="panel panel-primary">
 	      <!-- Default panel contents -->
 	      <div class="panel-heading">热文</div>
 	      <div class="panel-body">
-
-	      	
+                    {% block hot_article %}
+                        <ul>
+                        {% for ha in hot_articles %}
+                            <li><a href="{% url 'article_detail' ha.id %}">{{ha.title|truncatechars:20}}</a></li>
+                        {% endfor %}
+                        </ul>
+                    {% endblock %}	
 	      </div>
 	    </div>
   	</div>
