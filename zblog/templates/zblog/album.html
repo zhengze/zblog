@@ -18,12 +18,12 @@
 
 {% block content %}
     <hr/>
-    <div class='row-fluid'>
+    <div class='row'>
         {% for album in album_list %}
-            <div class='col-md-4'>
-                <div class="text-center"><a href="{% url 'photo' album.id %}"><img src="{{album.cover.url}}" class="img-thumbnail" alt="Responsive image"/></a></div>
-                <div><a href="{% url 'photo' album.id %}"><p class="text-center">{{album.name}}</p></a></div>
-            </div>
+                <div class='col-md-4'>
+                    <div><a href="{% url 'photo' album.id %}"><img src="{{album.cover.url}}" class="img-thumbnail" alt="Responsive image" style="width:250px;height:250px"/></a></div>
+                    <div class="text-center"><p><a href="{% url 'photo' album.id %}">{{album.name}}({{album.photo_count}})</a></p></div>
+                </div>
         {% endfor %}
     </div>
 {% endblock %}

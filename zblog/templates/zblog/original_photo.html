@@ -1,0 +1,78 @@
+{% extends "zblog/base.html" %}
+
+{% block content %}
+    <div class='container-fluid'>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'album' %}">所有相册</a></li>
+            <li class="active">{{album_obj.name}}</li>
+        </ol>
+        <hr/>
+
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+            {% for photo in photo_list %}
+                    {% ifequal query_photo.id  photo.id %}
+                    <div class="item active">
+                        <div class="text-center">
+                        <img class="img-reponsive" src="{{photo.photo.url}}" alt="">
+                        <div class="carousel-caption">
+                            <p class="info">{{photo.description}}</p>
+                        </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="item">
+                        <div class="text-center">
+                        <img class="img-reponsive" src="{{photo.photo.url}}" alt="">
+                        <div class="carousel-caption">
+                            <p class="info">{{photo.description}}</p>
+                        </div>
+                        </div>
+                    </div>
+                    {% endifequal %}
+
+            {% endfor %}
+            </div>
+
+          <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+                                                                                                                              </div>
+    </div>
+
+    <div class="col-md-8">
+        <ul class="pagination">
+            <li><a href="{{ request.path }}?page=1">«</a></li>
+              {% if page_obj.has_previous %}
+                <li><a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">上一页</a></li>
+              {% else %}
+                <li class="previous disabled"><a>上一页</a></li>
+              {% endif %}
+              {% for i in page_obj.paginator.page_range %}
+                <li {% if page_obj.number == i %}class="active"{% endif %}><a href="{{ request.path }}?page={{ i }}">{{ i }}</a></li>
+              {% endfor %}
+              {% if page_obj.has_next %}
+                <li><a href="{{ request.path }}?page={{ page_obj.next_page_number }}">下一页</a></li>
+              {% else %}
+                <li class="previous disabled"><a>下一页</a></li>
+              {% endif %}
+              <li><a href="{{ request.path }}?page={{ page_obj.paginator.num_pages }}">»</a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block comments %}
+    <hr/>
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2040209"></script>
+    <!-- UY END -->
+{% endblock %}

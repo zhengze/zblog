@@ -8,8 +8,8 @@
             <div>
                 <h3>{{ a.title }}</h3>
                 <hr/>
-                分类:<a href="">{{a.classify}}</a> 标签:{{a.tag}} 阅读:({{a.hits}}) 发表时间:{{a.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
            
+                |分类:<a href="">{{a.classify}}</a> |标签:<span class="label label-primary">{{a.tag}}</span> |阅读:<span class="badge">{{a.hits}}</span> |发表时间:{{a.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
                 <pre>{{a.content}}</pre>
               
             </div>
@@ -20,3 +20,10 @@
 
 {% endblock %}
     
+{% block comments %}
+    <hr/>
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2040209"></script>
+    <!-- UY END -->
+{% endblock %}
