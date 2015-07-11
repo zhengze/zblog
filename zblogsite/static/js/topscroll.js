@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $(function(){
+        $("#topcontrol").css("display", "none");
         $(window).scroll(function(){
             if($(window).scrollTop()>100){
                 $("#topcontrol").fadeIn(1500);
