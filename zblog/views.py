@@ -4,13 +4,14 @@ from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse
 from django.db.models import F, Count
 from django.views.generic import ListView
-from .models import Article, Classify, Photo, Album
+from .models import Article, Classify, Photo, Album, Music
 
 class IndexView(ListView):
     model = Article
     context_object_name = 'article_list'
     template_name = 'zblog/index.html'
     paginate_by = 10
+
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['classifies'] = Classify.objects.extra(select={\
@@ -46,6 +47,7 @@ class ArticleDetailView(IndexView):
     #    context = super(ArticleDetailView, self).get_context_data(**kwargs)
     #    context['classifies'] = Classify.objects.all()
     #    return context
+
     def get_queryset(self):
         #article = Article.objects.get(pk=self.args[0])
         #article.hits += 1
@@ -64,43 +66,69 @@ class ArticleClassificationView(IndexView):
     #    context = super(ArticleClassificationView, self).get_context_data(**kwargs)
     #    context['classifies'] = Classify.objects.all()
     #    return context
+
     def get_queryset(self):
-        classification = Classify.objects.get(pk=self.args[0])
+        classification = get_object_or_404(Classify, pk=self.args[0])
         return classification.article_set.all()
 
 class AlbumView(IndexView):
     template_name = 'zblog/album.html'
     model = Album
-    context_object_name = 'album_list'
+    def get_context_data(self, **kwargs):
+        context = super(AlbumView, self).get_context_data(**kwargs)
+        context['album_list'] = Album.objects.extra(select={ \
+            'photo_count':'select COUNT(zblog_photo.id) from zblog_photo \
+            where zblog_album.id = zblog_photo.album_id'
+        })
+        return context
 
 class PhotoView(IndexView):
     template_name = 'zblog/photos.html'
     model = Photo
     context_object_name = 'photo_list'
+
     def get_queryset(self):
-        album = Album.objects.get(pk=self.args[0])
-        return album.photo_set.all()
-    #def get_context_data(self, **kwargs):
-    #    context = super(PhotoView, self).get_context_data(**kwargs)
-    #    context['photo_classifies'] = PhotoClassify.objects.all()
-    #    context['classifies'] = Classify.objects.extra(select={\
-    #        'article_count':'select COUNT(zblog_article.title) from zblog_article \
-    #            where zblog_classify.id = zblog_article.classify_id'
-    #    })
-    #    context['hot_articles'] = Article.objects.order_by('-hits')[:10]
-    #    return context
+        self.album = get_object_or_404(Album, pk=self.args[0])
+        return self.album.photo_set.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(PhotoView, self).get_context_data(**kwargs)
+        context['album_obj'] = self.album
+        context['classifies'] = Classify.objects.extra(select={\
+            'article_count':'select COUNT(zblog_article.title) from zblog_article \
+                where zblog_classify.id = zblog_article.classify_id'
+        })
+        context['hot_articles'] = Article.objects.order_by('-hits')[:10]
+        return context
+
+class OriginalPhotoView(PhotoView):
+    template_name = 'zblog/original_photo.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(OriginalPhotoView, self).get_context_data(**kwargs)
+        context['album_obj'] = self.album
+        query_photo = get_object_or_404(Photo, pk=self.args[1])
+        context['query_photo'] = query_photo
+        context['classifies'] = Classify.objects.extra(select={\
+            'article_count':'select COUNT(zblog_article.title) from zblog_article \
+                where zblog_classify.id = zblog_article.classify_id'
+        })
+        context['hot_articles'] = Article.objects.order_by('-hits')[:10]
+        return context
 
 class MusicView(IndexView):
     template_name = 'zblog/music.html'
-    model = Article
-    #def get_context_data(self, **kwargs):
-    #    context = super(MusicView, self).get_context_data(**kwargs)
-    #    context['classifies'] = Classify.objects.extra(select={\
-    #        'article_count':'select COUNT(zblog_article.title) from zblog_article \
-    #            where zblog_classify.id = zblog_article.classify_id'
-    #    })
-    #    context['hot_articles'] = Article.objects.order_by('-hits')[:10]
-    #    return context
+    model = Music
+
+    def get_context_data(self, **kwargs):
+        context = super(MusicView, self).get_context_data(**kwargs)
+        context['music_obj'] = Music.objects.all()[:10]
+        context['classifies'] = Classify.objects.extra(select={\
+            'article_count':'select COUNT(zblog_article.title) from zblog_article \
+                where zblog_classify.id = zblog_article.classify_id'
+        })
+        context['hot_articles'] = Article.objects.order_by('-hits')[:10]
+        return context
 
 class AboutView(IndexView):
     template_name = 'zblog/aboutme.html'
