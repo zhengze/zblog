@@ -3,6 +3,11 @@ from base import *
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+STATIC_ROOT = ''
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static').replace('\\', '/'),
+)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
