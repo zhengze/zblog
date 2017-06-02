@@ -1,5 +1,4 @@
 {% extends "zblog/base.html" %}
-{% load url from future %}
 {% load staticfiles %}
 
 {% block 'script' %}
@@ -13,19 +12,6 @@
     <link href="{% static 'bar-ui/css/bar-ui.css' %}" rel="stylesheet">
     <link href="{% static 'zblog/css/base.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'bar-ui/css/bar-ui.css' %}" />
-    <!--
-    <style>
-        .sm2-bar-ui {
-            font-size: 16px;
-        }
-        .sm2-bar-ui .sm2-main-controls,.sm2-bar-ui .sm2-playlist-drawer {
-            background-color: #FF0000;
-        }
-        .sm2-bar-ui .sm2-inline-texture {
-            background: transparent;
-        }
-    </style>
-    -->
 {% endblock %}
 
 {% block 'navigation' %}
