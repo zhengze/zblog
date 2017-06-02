@@ -1,0 +1,23 @@
+{
+  "name": "zblog",
+  "version": "1.0.0",
+  "description": "this is a blog.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhengze/zblog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhengze/zblog/issues"
+  },
+  "homepage": "https://github.com/zhengze/zblog#readme"
+}
