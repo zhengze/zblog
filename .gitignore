@@ -1,1 +1,4 @@
 *.py[cod]
+node_modules/
+.idea
+./migrations
