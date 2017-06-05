@@ -1,17 +1,14 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.conf.urls.static import static
 from django.views.static import serve
-import zblog
-from zblogsite.settings.dev import MEDIA_ROOT
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
+from zblogsite.settings.base import MEDIA_ROOT
+
 admin.autodiscover()
 
 urlpatterns = [
     # Examples:
-    url(r'^', include('zblog.urls')),
+    url(r'^', include('apps.zblog.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     # Uncomment the next line to enable the admin:
