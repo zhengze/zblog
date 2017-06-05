@@ -1,0 +1,130 @@
+{% extends "zblog/base.html" %}
+{% load static %}
+
+{%  block 'extra_css' %}
+    <link rel="stylesheet" href="{% static 'bar-ui/css/bar-ui.css' %}" />
+{% endblock %}
+{% block 'extra_script' %}
+    <script type="text/javascript" src="{% static 'bar-ui/script/soundmanager2-nodebug.js' %}"></script>
+    <script src="{% static 'bar-ui/script/bar-ui.js' %}"></script>
+{% endblock %}
+
+{% block 'navigation' %}
+<div class="navbar-collapse bs-navbar-collapse" role="navigation">
+  <ul class="nav navbar-nav" role="tablist">
+    <li role="presentation"><a href="{% url 'index' %}">首页</a></li>
+    <li role="presentation"><a href="{% url 'article' %}">博文</a></li>
+    <li role="presentation"><a href="{% url 'album' %}">光影</a></li>
+    <li role="presentation" class='active'><a href="{% url 'music' %}">音乐</a></li>
+    <li role="presentation"><a href="{% url 'about' %}">个人简介</a></li>
+  </ul>
+  <form class="navbar-form pull-right" method="get" action="/">
+      <input type="text" class="form-control" name="s" id="s">
+      <button type="submit" class="btn btn-default">搜索</button>
+  </form>
+</div>
+{% endblock %}
+{% block content %}
+    <hr/>
+    <div class="sm2-bar-ui">
+        <div class="bd sm2-main-controls">
+            <div class="sm2-inline-texture"></div>
+            <div class="sm2-inline-gradient"></div>
+            <div class="sm2-inline-element sm2-button-element">
+                <div class="sm2-button-bd">
+                    <a href="#play" class="sm2-inline-button play-pause">Play / pause</a>
+                </div>
+            </div>
+
+            <div class="sm2-inline-element sm2-inline-status">
+                <div class="sm2-playlist">
+                    <div class="sm2-playlist-target">
+                        <noscript><p>JavaScript is required.</p></noscript>
+                    </div>
+                </div>
+
+                <div class="sm2-progress">
+                    <div class="sm2-row">
+                        <div class="sm2-inline-time">0:00</div>
+                        <div class="sm2-progress-bd">
+                        <div class="sm2-progress-track">
+                        <div class="sm2-progress-bar"></div>
+                        <div class="sm2-progress-ball"><div class="icon-overlay"></div></div>
+                    </div>
+                    </div>
+                    <div class="sm2-inline-duration">0:00</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="sm2-inline-element sm2-button-element sm2-volume">
+                <div class="sm2-button-bd">
+                    <span class="sm2-inline-button sm2-volume-control volume-shade"></span>
+                    <a href="#volume" class="sm2-inline-button sm2-volume-control">volume</a>
+                </div>
+            </div>
+
+            <div class="sm2-inline-element sm2-button-element sm2-menu">
+                <div class="sm2-button-bd">
+                    <a href="#menu" class="sm2-inline-button menu">menu</a>
+                </div>
+            </div>
+
+            </div>
+
+            <div class="bd sm2-playlist-drawer sm2-element">
+
+                <div class="sm2-inline-texture">
+                    <div class="sm2-box-shadow"></div>
+                </div>
+                
+                <div class="sm2-playlist-wrapper">
+                    {% if music_obj %}
+                        {% for m in music_obj %}
+                            <ul class="sm2-playlist-bd">
+                                <li>
+                                    <div class="sm2-row">
+                                        <div class="sm2-col sm2-wide">
+                                            <a href="{{m.mp3.url}}" class="exclude button-exclude inline-exclude"><b>{{m.title}}</b></a>
+                                        </div>
+                                        <!--
+                                        <div class="sm2-col">
+                                            <a href="http://figubbrazlevic.bandcamp.com/track/bosnian-syndicate" target="_blank" title="Buy &quot;Bosnian Syndicate&quot;" class="sm2-icon sm2-cart">Buy this track</a>
+                                        </div>
+                                        <div class="sm2-col">
+                                            <a href="http://freshly-ground.com/data/audio/sm2/Figub%20Brazlevi%C4%8D%20-%20Bosnian%20Syndicate.mp3" target="_blank" title="Download &quot;Bosnian Syndicate&quot;" class="sm2-icon sm2-music sm2-exclude">Download this track</a>
+                                        </div>
+                                        -->
+                                    </div>
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+    <div class="sm2-extra-controls">
+        <div class="bd">
+            <div class="sm2-inline-element sm2-button-element">
+                <a href="#prev" title="Previous" class="sm2-inline-button previous">&lt; previous</a>
+            </div>
+
+            <div class="sm2-inline-element sm2-button-element">
+                <a href="#next" title="Next" class="sm2-inline-button next">&gt; next</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block comments %}
+    <hr/>
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2040209"></script>
+    <!-- UY END -->
+{% endblock %}
