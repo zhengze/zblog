@@ -1,7 +1,6 @@
 # Django settings for zblogsite project.
 import os
 
-
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -108,11 +107,10 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'zblog',
+    'apps.zblog',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -167,3 +165,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+#针对Webpack的设置
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'js/dist/'
+    }
+}
