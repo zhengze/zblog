@@ -5,9 +5,9 @@ import sys
 if __name__ == "__main__":
     ENV_DEV = True
     if ENV_DEV:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "zblogsite.settings.dev")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "zblogsite.settings")
     else:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "zblogsite.settings.prod")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "zblogsite.settings")
 
     try:
         from django.core.management import execute_from_command_line
