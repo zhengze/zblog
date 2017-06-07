@@ -1,17 +1,20 @@
 from django.db import models
 
+
 class Classify(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
 
+
 class Tag(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
-    
+
+
 class Article(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
@@ -22,8 +25,10 @@ class Article(models.Model):
 
     class Meta:
         ordering = ['-created_time']
+
     def __str__(self):
         return self.title
+
 
 class Album(models.Model):
     name = models.CharField(max_length=50)
@@ -31,6 +36,7 @@ class Album(models.Model):
 
     def __str__(self):
         return self.name    
+
 
 class Photo(models.Model):
     photo = models.ImageField(upload_to='images/%Y/%m/%d')
@@ -40,8 +46,10 @@ class Photo(models.Model):
 
     class Meta:
         ordering = ['-created_time']
+
     def __str__(self):
         return self.description
+
 
 class Music(models.Model):
     title =  models.CharField(max_length=50)
@@ -50,5 +58,6 @@ class Music(models.Model):
 
     class Meta:
         ordering = ['-created_time']
+
     def __str__(self):
         return self.title
