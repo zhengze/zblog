@@ -4,3 +4,4 @@ node_modules/
 */migrations
 */media
 webpack-*.json
+npm-debug.log
