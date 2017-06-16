@@ -7,6 +7,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+ALLOWED_HOSTS = [ ]
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -166,7 +168,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#针对Webpack的设置
+# 针对Webpack的设置
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'js/dist/'
