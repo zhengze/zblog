@@ -3,17 +3,15 @@
 {% block content %}
 
     <div>
-    {% if article_list %}
-        {% for a in article_list %}
-            <div>
-                <h3>{{ a.title }}</h3>
-                <hr/>
-           
-                |分类:<a href="">{{a.classify}}</a> |标签:<span class="label label-primary">{{a.tag}}</span> |阅读:<span class="badge">{{a.hits}}</span> |发表时间:{{a.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
-                <pre>{{a.content}}</pre>
-              
-            </div>
-        {% endfor %}
+    {% if article %}
+        <div>
+            <h3>{{ article.title }}</h3>
+            <hr/>
+
+            |分类:<a href="">{{article.classify}}</a> |标签:<span class="label label-primary">{{article.tag}}</span> |阅读:<span class="badge">{{article.hits}}</span> |发表时间:{{article.created_time|date:"Y-m-d H:i:s"}}<br/><br/>
+            <pre>{{article.content}}</pre>
+
+        </div>
     {% endif %}
 
     </div>
