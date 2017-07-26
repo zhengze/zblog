@@ -92,7 +92,7 @@
                     {% block hot_article %}
                         <ul>
                         {% for ha in hot_articles %}
-                            <li><a href="{% url 'article_detail' ha.id %}">{{ha.title|truncatechars:20}}</a></li>
+                            <li><a href="{% url 'article_detail' ha.id %}">{{ha.title|safe|truncatechars:20}}</a></li>
                         {% endfor %}
                         </ul>
                     {% endblock %}	
