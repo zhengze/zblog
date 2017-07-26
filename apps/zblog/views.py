@@ -90,8 +90,9 @@ class PhotoView(IndexView):
     model = Photo
     context_object_name = 'photo_list'
 
-    def get_queryset(self):
-        self.album = get_object_or_404(Album, pk=self.args[0])
+    def get_queryset(self, **kwargs):
+        album_id = int(self.kwargs.get("album_id"))
+        self.album = get_object_or_404(Album, pk=album_id)
         return self.album.photo_set.all()
 
     def get_context_data(self, **kwargs):
@@ -110,8 +111,9 @@ class OriginalPhotoView(PhotoView):
 
     def get_context_data(self, **kwargs):
         context = super(OriginalPhotoView, self).get_context_data(**kwargs)
+        photo_id = int(self.kwargs.get("photo_id"))
         context['album_obj'] = self.album
-        query_photo = get_object_or_404(Photo, pk=self.args[1])
+        query_photo = get_object_or_404(Photo, pk=photo_id)
         context['query_photo'] = query_photo
         return context
 
