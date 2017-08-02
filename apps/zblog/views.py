@@ -36,6 +36,8 @@ class IndexView(ListView, BaseContext):
     def get_queryset(self):
         article_list = Article.objects.all()
         for article in article_list:
+            tags = [tag.name for tag in article.tags.all()]
+            article.tags_text = ",".join(tags)
             article.content = markdown.markdown(article.content,)
         return article_list
 
