@@ -18,12 +18,14 @@ class BaseContext(ContextMixin):
 
     def get_context_data(self, **kwargs):
         context = super(BaseContext, self).get_context_data(**kwargs)
-        context['classifies'] = Classify.objects.extra(select={
-            "article_count": """select COUNT(zblog_article.title) 
-                        from zblog_article 
-                        where zblog_classify.id = zblog_article.classify_id
-                    """
-        })
+        classifies = Classify.objects.annotate(article_count=Count("article"))
+        # classifies = Classify.objects.extra(select={
+        #     "article_count": """select COUNT(zblog_article.title)
+        #                 from zblog_article
+        #                 where zblog_classify.id = zblog_article.classify_id
+        #             """
+        # })
+        context['classifies'] = classifies
         context['hot_articles'] = get_list_or_404(Article.objects.order_by('-hits')[:10])
         return context
 
