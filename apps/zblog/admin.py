@@ -4,10 +4,10 @@ from .models import *
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'content', 'created_time', 'classify', 'hits')
+    list_display = ('title', 'content', 'created_time', 'category', 'hits')
     exclude = ('hits', )
-    list_filter = ('created_time', 'classify')
-    search_fields = ['title', 'classify']
+    list_filter = ('created_time', 'category')
+    search_fields = ['title', 'category']
 
 
 @admin.register(Photo)
@@ -28,8 +28,8 @@ class AlbumAdmin(admin.ModelAdmin):
     list_display = ('name', 'cover')
 
 
-@admin.register(Classify)
-class ClassifyAdmin(admin.ModelAdmin):
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 

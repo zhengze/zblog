@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Classify(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=20)
 
     class Meta:
@@ -26,8 +26,7 @@ class Article(models.Model):
     content = models.TextField(verbose_name=u"正文", blank=True)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
     updated_time = models.DateTimeField(auto_now=True, verbose_name=u"修改时间")
-    classify = models.ForeignKey(Classify, verbose_name=u"分类", on_delete=models.CASCADE)
-    #tag = models.ManyToManyField(Tag, related_name="article")
+    category = models.ForeignKey(Category, verbose_name=u"分类", on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, related_name="articles", blank=True, verbose_name=u"标签")
     hits = models.IntegerField(default=0, verbose_name=u"浏览量")
 

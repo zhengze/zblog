@@ -75,8 +75,8 @@
                   <div class="panel-body">
                         {% block classify %}
                             <ul>
-                            {% for cf in classifies %}
-                                <li><a href="{% url 'article_classification' cf.id %}">{{cf}}({{cf.article_count}})</a></li>
+                            {% for category in categories %}
+                                <li><a href="{% url 'article_classification' category.id %}">{{category}}({{category.article_count}})</a></li>
                             {% endfor %}
                             </ul>
                         {% endblock %}

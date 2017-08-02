@@ -8,7 +8,7 @@ from django.views.generic.base import ContextMixin
 import markdown
 from .models import (
     Article,
-    Classify,
+    Category,
     Photo,
     Album,
     Music
@@ -18,14 +18,14 @@ class BaseContext(ContextMixin):
 
     def get_context_data(self, **kwargs):
         context = super(BaseContext, self).get_context_data(**kwargs)
-        classifies = Classify.objects.annotate(article_count=Count("article"))
+        categories = Category.objects.annotate(article_count=Count("article"))
         # classifies = Classify.objects.extra(select={
         #     "article_count": """select COUNT(zblog_article.title)
         #                 from zblog_article
         #                 where zblog_classify.id = zblog_article.classify_id
         #             """
         # })
-        context['classifies'] = classifies
+        context['categories'] = categories
         context['hot_articles'] = get_list_or_404(Article.objects.order_by('-hits')[:10])
         return context
 
@@ -64,14 +64,14 @@ class ArticleDetailView(DetailView, BaseContext):
         return get_object_or_404(Article, pk=article_id)
 
 
-class ArticleClassificationView(ListView, BaseContext):
+class ArticleCategoryView(ListView, BaseContext):
     context_object_name = 'article_list'
     template_name = 'zblog/article_classification.html'
     pk_url_kwarg = 'classification_id'
 
     def get_queryset(self, **kwargs):
         classification_id = int(self.kwargs.get(self.pk_url_kwarg, None))
-        classification = get_object_or_404(Classify, pk=classification_id)
+        classification = get_object_or_404(Category, pk=classification_id)
         article_list = classification.article_set.all()
         return article_list
 
@@ -102,10 +102,12 @@ class PhotoView(IndexView):
     def get_context_data(self, **kwargs):
         context = super(PhotoView, self).get_context_data(**kwargs)
         context['album_obj'] = self.album
-        context['classifies'] = Classify.objects.extra(select={\
-            'article_count':'select COUNT(zblog_article.title) from zblog_article \
-                where zblog_classify.id = zblog_article.classify_id'
-        })
+        categories = Category.objects.annotate(article_count=Count("article"))
+        # context['classifies'] = Category.objects.extra(select={
+        #     'article_count':'select COUNT(zblog_article.title) from zblog_article \
+        #         where zblog_classify.id = zblog_article.classify_id'
+        # })
+        context["categories"] = categories
         context['hot_articles'] = Article.objects.order_by('-hits')[:10]
         return context
 
