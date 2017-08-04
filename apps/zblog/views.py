@@ -82,9 +82,10 @@ class AlbumView(IndexView):
 
     def get_context_data(self, **kwargs):
         context = super(AlbumView, self).get_context_data(**kwargs)
-        context['album_list'] = Album.objects.extra(select={ \
-            'photo_count':'select COUNT(zblog_photo.id) from zblog_photo \
-            where zblog_album.id = zblog_photo.album_id'
+        context['album_list'] = Album.objects.extra(select={
+            'photo_count': """select COUNT(zblog_photo.id) from zblog_photo 
+            where zblog_album.id = zblog_photo.album_id
+            """
         })
         return context
 
