@@ -1,11 +1,14 @@
 # coding:utf8
 
 from django.shortcuts import get_object_or_404, get_list_or_404
+from django.http import Http404
 from django.core.urlresolvers import reverse
+from django.core.cache import caches
 from django.db.models import F, Count
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import ContextMixin
 import markdown
+import logging
 from .models import (
     Article,
     Category,
@@ -13,6 +16,17 @@ from .models import (
     Album,
     Music
 )
+
+
+# 缓存
+try:
+    cache = caches['memcache']
+except ImportError as e:
+    cache = caches['default']
+
+# logger
+logger = logging.getLogger(__name__)
+
 
 class BaseContext(ContextMixin):
 
@@ -53,15 +67,49 @@ class ArticleDetailView(DetailView, BaseContext):
     model = Article
     pk_url_kwarg = 'article_id'
     context_object_name = 'article'
+    slug_field = 'title'
+
+    def get(self, request, *args, **kwargs):
+        # 统计文章的访问访问次数
+        if 'HTTP_X_FORWARDED_FOR' in request.META:
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        print(ip)
+        article_id = self.kwargs.get(self.pk_url_kwarg, None)
+        en_title = self.kwargs.get('slug')
+
+        # 获取15*60s时间内访问过这篇文章的所有ip
+        visited_ips = cache.get(en_title, [])
+
+        # 如果ip不存在就把文章的浏览次数+1
+        if ip not in visited_ips:
+            try:
+                # article = self.queryset.get(article_id=en_title)
+                article = get_object_or_404(Article, pk=article_id)
+            except Article.DoesNotExist:
+                logger.error(u'[ArticleDetailView]访问不存在的文章:[%s]' % article)
+                raise Http404
+            else:
+                article.hits += 1
+                article.save()
+                # article.update(hits=F('hits') + 1)
+                visited_ips.append(ip)
+
+            # 更新缓存
+            cache.set(en_title, visited_ips, 15 * 60)
+
+        return super(ArticleDetailView, self).get(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         article_id = int(self.kwargs.get(self.pk_url_kwarg, None))
         try:
-            article = Article.objects.filter(pk=article_id)
-            article.update(hits=F('hits')+1)
+            # article = Article.objects.filter(pk=article_id)
+            # article.update(hits=F('hits')+1)
+            article = get_object_or_404(Article, pk=article_id)
         except IndexError:
             return None
-        return get_object_or_404(Article, pk=article_id)
+        return article
 
 
 class ArticleCategoryView(ListView, BaseContext):
