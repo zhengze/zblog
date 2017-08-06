@@ -174,3 +174,22 @@ WEBPACK_LOADER = {
         'BUNDLE_DIR_NAME': 'js/dist/'
     }
 }
+
+# cache配置
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        'options': {
+            'MAX_ENTRIES': 1024,
+        }
+    },
+    'memcache': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        # 'LOCATION': 'unix:/home/billvsme/memcached.sock',
+        'LOCATION': '127.0.0.1:11211',
+        'options': {
+            'MAX_ENTRIES': 1024,
+        }
+    },
+}
