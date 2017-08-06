@@ -28,7 +28,7 @@ class Article(models.Model):
     updated_time = models.DateTimeField(auto_now=True, verbose_name=u"修改时间")
     category = models.ForeignKey(Category, verbose_name=u"分类", on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, related_name="articles", blank=True, verbose_name=u"标签")
-    hits = models.IntegerField(default=0, verbose_name=u"浏览量")
+    hits = models.PositiveIntegerField(u"浏览量", default=0)
 
     class Meta:
         ordering = ['-created_time']
