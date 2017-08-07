@@ -52,7 +52,7 @@ class IndexView(ListView, BaseContext):
     def get_queryset(self):
         article_list = Article.objects.all()
         for article in article_list:
-            tags = [tag.name for tag in article.tags.all()]
+            tags = list(article.tags.values_list("name", flat=True))
             article.tags_text = ",".join(tags)
             article.content = markdown.markdown(article.content,)
         return article_list
@@ -75,7 +75,7 @@ class ArticleDetailView(DetailView, BaseContext):
             ip = request.META['HTTP_X_FORWARDED_FOR']
         else:
             ip = request.META['REMOTE_ADDR']
-        print(ip)
+
         article_id = self.kwargs.get(self.pk_url_kwarg, None)
         en_title = self.kwargs.get('slug')
 
