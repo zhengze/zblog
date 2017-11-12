@@ -1,0 +1,21 @@
+db:
+  restart: always
+  image: mysql:5.6
+  expose:
+    - "3306"
+  volumes:
+    - ./db:/var/lib/mysql
+  environment:
+    - MYSQL_DATABASE=root
+    - MYSQL_ROOT_PASSWORD=1234
+
+web:
+  restart: always
+  build: .
+  command: uwsgi -s :8000 -w zblogsite.wsgi -p 3
+  volumes:
+    - .:/code
+  ports:
+    - "8000:8000"
+  links:
+    - db
