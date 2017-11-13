@@ -5,17 +5,19 @@ db:
     - "3306"
   volumes:
     - ./db:/var/lib/mysql
+    - ./conf/mysql/my.cnf:/etc/mysql/my.cnf
   environment:
-    - MYSQL_DATABASE=root
+    - MYSQL_DATABASE=zblog
     - MYSQL_ROOT_PASSWORD=1234
 
 web:
   restart: always
   build: .
-  command: uwsgi -s :8000 -w zblogsite.wsgi -p 3
+  #command: uwsgi -s :8080 -w zblogsite.wsgi -p 3 --buffer-size 32768
+  command: python manage.py runserver 0.0.0.0:8080
   volumes:
     - .:/code
   ports:
-    - "8000:8000"
+    - "8080:8080"
   links:
     - db
