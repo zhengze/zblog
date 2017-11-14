@@ -8,6 +8,11 @@ django编写的博客例子
 * mysql5.7.17
 
 ## 搭建环境
-* `pip install -r requirements.txt`
-* `cnpm install`
-* `cd zblog` `python manage.py makemigrations zblog` `python manage.py migrate`
+* `sudo apt-get install -y docker`
+* `sudo pip install docker-compose`
+* `sudo docker-compose build`
+* `sudo docker-compose up -d`
+* `sudo docker-compose run web python manage.py runserver makemigrations zblog`
+* `sudo docker-compose run web python manage.py runserver migrate`
+* `sudo docker-compose run web python manage.py createsuperuser`
+* page admin, add Article
