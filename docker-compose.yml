@@ -13,8 +13,8 @@ db:
 web:
   restart: always
   build: .
-  #command: uwsgi -s :8080 -w zblogsite.wsgi -p 3 --buffer-size 32768
-  command: python manage.py runserver 0.0.0.0:8080
+  command: uwsgi --http 0.0.0.0:8080 -w zblogsite.wsgi -M -p 3 --vhost --buffer-size 32768
+  #command: python manage.py runserver 0.0.0.0:8080
   volumes:
     - .:/code
   ports:
