@@ -1,23 +1,39 @@
-db:
-  restart: always
-  image: mysql:5.6
-  expose:
-    - "3306"
-  volumes:
-    - ./db:/var/lib/mysql
-    - ./conf/mysql/my.cnf:/etc/mysql/my.cnf
-  environment:
-    - MYSQL_DATABASE=zblog
-    - MYSQL_ROOT_PASSWORD=1234
+version: "2"
 
-web:
-  restart: always
-  build: .
-  command: uwsgi --http 0.0.0.0:8080 -w zblogsite.wsgi -M -p 3 --vhost --buffer-size 32768
-  #command: python manage.py runserver 0.0.0.0:8080
-  volumes:
-    - .:/code
-  ports:
-    - "8080:8080"
-  links:
-    - db
+services:
+    db:
+      restart: always
+      image: mysql:5.6
+      expose:
+        - "3306"
+      volumes:
+        - ./db:/var/lib/mysql
+        - ./conf/mysql/my.cnf:/etc/mysql/my.cnf
+      environment:
+        - MYSQL_DATABASE=zblog
+        - MYSQL_ROOT_PASSWORD=1234
+
+    web:
+      restart: always
+      build: .
+      command: uwsgi --http 0.0.0.0:8000 -w zblogsite.wsgi -M -p 3 --vhost --buffer-size 32768
+      #command: python manage.py runserver 0.0.0.0:8080
+      volumes:
+        - .:/code
+      ports:
+        - "8000:8000"
+      links:
+        - db
+    
+    nginx:
+        restart: always
+        image: nginx
+        ports:
+            - "80:80"
+        volumes:
+            - ./conf/nginx/zblog.conf:/etc/nginx/conf.d/zblog.conf
+        volumes_from:
+            - web
+        links:
+            - web:web
+
