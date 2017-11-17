@@ -8,6 +8,7 @@ RUN mkdir /code
 RUN mkdir /code/db
 ADD . /code/
 WORKDIR /code
-RUN pip install -r requirements.txt && pip install uwsgi -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+RUN pip install -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com \
+&& pip install uwsgi -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
 
 
