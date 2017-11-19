@@ -9,7 +9,10 @@
     <title>村民记忆</title>
     {% block 'base_css' %}
         <link href="{% static 'zblog/libs/bootstrap-3.3.7/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link href="{% static 'zblog/src/css/base.css' %}" rel="stylesheet">
+        <!--<link href="{% static 'zblog/src/css/base.css' %}" rel="stylesheet">-->
+        {% load render_bundle from webpack_loader %}
+
+        {% render_bundle 'base' 'css' %}
     {% endblock %}
 
     {% block 'extra_css' %}
