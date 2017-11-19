@@ -60,7 +60,8 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 
-   # os.path.join(BASE_DIR, 'static').replace('\\', '/'),
+    # os.path.join(BASE_DIR, 'static').replace('\\', '/'),
+    os.path.join(BASE_DIR, "webpack_js").replace("\\", "/"),
 )
 
 # List of finder classes that know how to find static files in
@@ -112,6 +113,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    'webpack_loader',
     'apps.zblog',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -170,9 +172,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # 针对Webpack的设置
 WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'js/dist/'
-    }
+    'DEFAULT': {  
+        'BUNDLE_DIR_NAME': 'bundles/',  
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),  
+        'POLL_INTERVAL': 0.1,  
+        'TIMEOUT': None,  
+        'IGNORE': ['.+\.hot-update.js', '.+\.map']  
+    }  
 }
 
 # cache配置
