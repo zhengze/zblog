@@ -23,7 +23,7 @@ sudo pip install docker-compose
 
 ## 5.database migrate
 ```bash
-sudo docker-compose run web python manage.py runserver makemigrations zblog`
+sudo docker-compose run web python manage.py runserver makemigrations zblog
 sudo docker-compose run web python manage.py runserver migrate
 ```
 
