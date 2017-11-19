@@ -1,7 +1,9 @@
 *.py[cod]
 node_modules/
 .idea
-*/migrations
+./apps/zblog/migrations
 */media
+./db
+./zblogsite/static
 webpack-*.json
 npm-debug.log
