@@ -9,8 +9,11 @@ module.exports = {
     base: "./apps/zblog/webpack_js/base.js",
   }, //entry文件的位置
   output: {
-    path: path.resolve('./apps/zblog/webpack_js/bundles'), //和settings.py里的WEBPACK_LOADER的设置对应
+    path: path.resolve('./apps/zblog/static/bundles'), //和settings.py里的WEBPACK_LOADER的设置对应
     filename: "[name].dev.js"
+  },
+  externals:{
+    'jquery':'window.jQuery'
   },
   module: { //使用babel loader
     loaders: [
@@ -24,12 +27,22 @@ module.exports = {
       },
       {test: /\.css$/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })},
       //{test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')},
-      {test: /\.jpg$/, loader: 'url-loader?limit=100000'}
+      {test: /\.jpg$/, loader: 'url-loader?limit=100000'},
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+      { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }
     ]
   },
   plugins: [
     new BundleTracker({filename: './zblogsite/webpack-stats.json'}),
     new ExtractTextPlugin("base.css"),
+    new webpack.ProvidePlugin({
+        "$": "jquery",
+        "jQuery": "jquery",
+        "window.jQuery":"jquery",
+        "boostrap": "bootstrap"
+    }),
   ],
   devtool: "eval-source-map"
 };
