@@ -5,5 +5,6 @@ node_modules/
 */media
 ./db
 ./zblogsite/static
+./apps/zblog/static/bundles/*.*
 webpack-*.json
 npm-debug.log
