@@ -22,7 +22,9 @@
         <script src="{% static 'zblog/libs/jquery-1.11/jquery.min.js' %}"></script>
         <script src="{% static 'zblog/libs/jquery-1.11/jquery-1.11.1.min.js' %}"></script>
         <script src="{% static 'zblog/libs/bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'zblog/src/js/topscroll.js' %}"></script>
+        <!--<script src="{% static 'zblog/src/js/topscroll.js' %}"></script>-->
+        {% render_bundle 'base' 'js' %}
+        
     {% endblock %}
 
     {% block 'extra_script' %}
