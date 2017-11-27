@@ -6,14 +6,14 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
   context: __dirname,
   entry: {
-    base: "./apps/zblog/webpack_js/base.js",
+    main: "./apps/zblog/webpack_js/main.js",
   }, //entry文件的位置
   output: {
     path: path.resolve('./apps/zblog/static/bundles'), //和settings.py里的WEBPACK_LOADER的设置对应
     filename: "[name].dev.js"
   },
   externals:{
-    'jquery':'window.jQuery'
+    'jquery':'window.$'
   },
   module: { //使用babel loader
     loaders: [
@@ -31,15 +31,21 @@ module.exports = {
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
       { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
+      {test: require.resolve('jquery'), loader:'expose?jQuery!expose!$'}
     ]
+  },
+  resolve: {
+    alias: {
+        'jquery': 'jquery/dist/jquery.min.js',
+    }
   },
   plugins: [
     new BundleTracker({filename: './zblogsite/webpack-stats.json'}),
-    new ExtractTextPlugin("base.css"),
+    new ExtractTextPlugin("main.css"),
     new webpack.ProvidePlugin({
-        "$": "jquery",
-        "jQuery": "jquery",
+        $: "jquery",
+        jQuery: "jquery",
         "window.jQuery":"jquery",
         "boostrap": "bootstrap"
     }),
