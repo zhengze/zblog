@@ -12,18 +12,18 @@
         <!--<link href="{% static 'zblog/src/css/base.css' %}" rel="stylesheet">-->
         {% load render_bundle from webpack_loader %}
 
-        {% render_bundle 'base' 'css' %}
+        {% render_bundle 'main' 'css' %}
     {% endblock %}
 
     {% block 'extra_css' %}
     {% endblock %}
 
     {% block 'base_script' %}
-        <script src="{% static 'zblog/libs/jquery-1.11/jquery.min.js' %}"></script>
-        <script src="{% static 'zblog/libs/jquery-1.11/jquery-1.11.1.min.js' %}"></script>
+        <!--<script src="{% static 'zblog/libs/jquery-1.11/jquery.min.js' %}"></script>
+        <script src="{% static 'zblog/libs/jquery-1.11/jquery-1.11.1.min.js' %}"></script>-->
         <script src="{% static 'zblog/libs/bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
         <!--<script src="{% static 'zblog/src/js/topscroll.js' %}"></script>-->
-        {% render_bundle 'base' 'js' %}
+        {% render_bundle 'main' 'js' %}
         
     {% endblock %}
 
