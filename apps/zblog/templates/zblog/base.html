@@ -80,9 +80,11 @@
               <div class="panel-body">
                     {% block classify %}
                         <ul>
-                        {% for category in categories %}
-                            <li><a href="{% url 'article_classification' category.id %}">{{category}}({{category.article_count}})</a></li>
-                        {% endfor %}
+                            {% if categories %}
+                                {% for category in categories %}
+                                    <li><a href="{% url 'article_classification' category.id %}">{{category}}({{category.article_count}})</a></li>
+                                {% endfor %}
+                            {% endif %}
                         </ul>
                     {% endblock %}
               </div>
