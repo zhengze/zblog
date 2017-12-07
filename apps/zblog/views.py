@@ -31,26 +31,37 @@ logger = logging.getLogger(__name__)
 class BaseContext(ContextMixin):
 
     def get_context_data(self, **kwargs):
-        context = super(BaseContext, self).get_context_data(**kwargs)
-        categories = Category.objects.annotate(article_count=Count("article"))
-        # classifies = Classify.objects.extra(select={
-        #     "article_count": """select COUNT(zblog_article.title)
-        #                 from zblog_article
-        #                 where zblog_classify.id = zblog_article.classify_id
-        #             """
-        # })
-        context['categories'] = categories
-        context['hot_articles'] = get_list_or_404(Article.objects.order_by('-hits')[:10])
-        return context
+        try:
+            context = super(BaseContext, self).get_context_data(**kwargs)
+            if Article.objects.exists():
+                categories = Category.objects.annotate(article_count=Count("article"))
+            else:
+                categories = None
+                
+            
+            # classifies = Classify.objects.extra(select={
+            #     "article_count": """select COUNT(zblog_article.title)
+            #                 from zblog_article
+            #                 where zblog_classify.id = zblog_article.classify_id
+            #             """
+            # })
+            context['categories'] = categories if categories else None
+            context['hot_articles'] = get_list_or_404(Article.objects.order_by('-hits')[:10])
+            return context
+        except Exception as e:
+            logger.error("error msg:", e)
+            return None
 
 
 class IndexView(ListView, BaseContext):
     context_object_name = 'article_list'
     template_name = 'zblog/index.html'
-    paginate_by = 10
+    #paginate_by = 10
 
     def get_queryset(self):
         article_list = Article.objects.all()
+        if not article_list:
+            return None
         for article in article_list:
             tags = list(article.tags.values_list("name", flat=True))
             article.tags_text = ",".join(tags)
@@ -130,11 +141,15 @@ class AlbumView(IndexView):
 
     def get_context_data(self, **kwargs):
         context = super(AlbumView, self).get_context_data(**kwargs)
-        context['album_list'] = Album.objects.extra(select={
+        if not Album.objects.exists():
+            return None
+        albums = Album.objects.extra(select={
             'photo_count': """select COUNT(zblog_photo.id) from zblog_photo 
             where zblog_album.id = zblog_photo.album_id
             """
         })
+        
+        context["album_list"] = albums
         return context
 
 
