@@ -33,10 +33,9 @@ class BaseContext(ContextMixin):
     def get_context_data(self, **kwargs):
         try:
             context = super(BaseContext, self).get_context_data(**kwargs)
-            if Article.objects.exists():
-                categories = Category.objects.annotate(article_count=Count("article"))
-            else:
-                categories = None
+            if not Article.objects.exists():
+                return None
+            categories = Category.objects.annotate(article_count=Count("article"))
                 
             
             # classifies = Classify.objects.extra(select={
