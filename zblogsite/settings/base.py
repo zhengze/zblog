@@ -1,3 +1,4 @@
+#coding: utf8
 # Django settings for zblogsite project.
 import os
 
