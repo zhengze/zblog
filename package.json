@@ -4,7 +4,7 @@
   "description": "this is a blog.",
   "main": "index.js",
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.0.0",
     "expose-loader": "^0.7.4",
     "file-loader": "^1.1.6"
   },
@@ -21,7 +21,7 @@
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
-    "webpack-bundle-tracker": "^0.2.0",
+    "webpack-bundle-tracker": "^0.2.1",
     "webpack-dev-server": "^2.4.5"
   },
   "scripts": {
