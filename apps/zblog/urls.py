@@ -1,7 +1,7 @@
 # coding:utf-8
 
 
-from django.conf.urls import url
+from django.conf.urls import include, url
 from apps.zblog.views import (
     IndexView,
     ArticleView,
@@ -14,7 +14,30 @@ from apps.zblog.views import (
     AboutView
 )
 
+from rest_framework import serializers, viewsets, routers
+from apps.zblog.models import (
+	Article
+)
+
+# Serializers define the API representation.
+class ArticleSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Article
+        #fields = ('title', 'content', 'hits', 'created_time', 'updated_time', 'category', 'tags')
+        fields = ('title', 'content', 'hits', 'created_time', 'updated_time')
+
+# ViewSets define the view behavior.
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'articles', ArticleViewSet)
+
 urlpatterns = [
+    url(r'^api/v1.0/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^article$', ArticleView.as_view(), name='article'),
     url(r'^article/detail/(?P<article_id>\d+)/$', ArticleDetailView.as_view(), name='article_detail'),
