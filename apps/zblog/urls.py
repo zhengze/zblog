@@ -15,7 +15,7 @@ from apps.zblog.views import (
 )
 
 from rest_framework import routers
-from app.zblog.api_view.views import ArticleViewSet
+from apps.zblog.api_view.views import ArticleViewSet
 
 
 
