@@ -14,22 +14,10 @@ from apps.zblog.views import (
     AboutView
 )
 
-from rest_framework import serializers, viewsets, routers
-from apps.zblog.models import (
-	Article
-)
+from rest_framework import routers
+from app.zblog.api_view.views import ArticleViewSet
 
-# Serializers define the API representation.
-class ArticleSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Article
-        #fields = ('title', 'content', 'hits', 'created_time', 'updated_time', 'category', 'tags')
-        fields = ('title', 'content', 'hits', 'created_time', 'updated_time')
 
-# ViewSets define the view behavior.
-class ArticleViewSet(viewsets.ModelViewSet):
-    queryset = Article.objects.all()
-    serializer_class = ArticleSerializer
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
