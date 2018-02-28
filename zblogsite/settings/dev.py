@@ -12,7 +12,8 @@ DATABASES = {
         'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '3306',                      # Set to empty string for default.
         'OPTIONS': {
-            'init_command': "Set sql_mode='STRICT_TRANS_TABLES'"
+            #'init_command': "Set sql_mode='STRICT_TRANS_TABLES'"
+            'init_command': "Set sql_mode='traditional'"
         }
     }
 }
