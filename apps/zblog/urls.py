@@ -15,13 +15,24 @@ from apps.zblog.views import (
 )
 
 from rest_framework import routers
-from apps.zblog.api_view.views import ArticleViewSet
-
+from apps.zblog.api_view.views import (
+    ArticleViewSet,
+    CategoryViewSet,
+    TagViewSet,
+    AlbumViewSet,
+    PhotoViewSet,
+    MusicViewSet,
+)
 
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'articles', ArticleViewSet)
+router.register(r'categories', CategoryViewSet)
+router.register(r'tags', TagViewSet)
+router.register(r'albums', AlbumViewSet)
+router.register(r'photos', PhotoViewSet)
+router.register(r'musics', MusicViewSet)
 
 urlpatterns = [
     url(r'^api/v1.0/', include(router.urls)),
