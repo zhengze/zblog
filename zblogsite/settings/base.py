@@ -1,3 +1,4 @@
+#coding: utf8
 # Django settings for zblogsite project.
 import os
 
@@ -115,6 +116,7 @@ INSTALLED_APPS = (
     
     'webpack_loader',
     'apps.zblog',
+    'rest_framework',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -198,4 +200,12 @@ CACHES = {
             'MAX_ENTRIES': 1024,
         }
     },
+}
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 }

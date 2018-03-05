@@ -1,7 +1,7 @@
 # coding:utf-8
 
 
-from django.conf.urls import url
+from django.conf.urls import include, url
 from apps.zblog.views import (
     IndexView,
     ArticleView,
@@ -14,7 +14,29 @@ from apps.zblog.views import (
     AboutView
 )
 
+from rest_framework import routers
+from apps.zblog.api_view.views import (
+    ArticleViewSet,
+    CategoryViewSet,
+    TagViewSet,
+    AlbumViewSet,
+    PhotoViewSet,
+    MusicViewSet,
+)
+
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'articles', ArticleViewSet)
+router.register(r'categories', CategoryViewSet)
+router.register(r'tags', TagViewSet)
+router.register(r'albums', AlbumViewSet)
+router.register(r'photos', PhotoViewSet)
+router.register(r'musics', MusicViewSet)
+
 urlpatterns = [
+    url(r'^api/v1.0/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^article$', ArticleView.as_view(), name='article'),
     url(r'^article/detail/(?P<article_id>\d+)/$', ArticleDetailView.as_view(), name='article_detail'),

@@ -17,7 +17,7 @@ services:
       restart: always
       build: .
       #command: uwsgi --http 0.0.0.0:8000 -w zblogsite.wsgi -M -p 3 --vhost --buffer-size 32768
-      command: python manage.py runserver 0.0.0.0:8000
+      command: python manage.py runserver 0.0.0.0:8000 --settings=zblogsite.settings.docker
       volumes:
         - .:/code
       ports:

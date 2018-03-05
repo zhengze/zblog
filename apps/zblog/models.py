@@ -1,3 +1,5 @@
+#coding: utf8
+
 from django.db import models
 
 
@@ -26,7 +28,7 @@ class Article(models.Model):
     content = models.TextField(verbose_name=u"正文", blank=True)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
     updated_time = models.DateTimeField(auto_now=True, verbose_name=u"修改时间")
-    category = models.ForeignKey(Category, verbose_name=u"分类", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="articles", verbose_name=u"分类", on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, related_name="articles", blank=True, verbose_name=u"标签")
     hits = models.PositiveIntegerField(u"浏览量", default=0)
 
