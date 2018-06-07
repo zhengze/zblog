@@ -9,19 +9,16 @@ name = "pypi"
 
 httpie = "*"
 tox = "*"
-sphinx = "*"
-sphinx-autobuild = "*"
 
 
 [packages]
 
-django = "==1.11.2"
+Django = "==1.11.2"
 django-webpack-loader = "==0.5.0"
 olefile = "==0.44"
-pillow = "==4.1.1"
-pymysql = "==0.7.11"
+Pillow = "==4.1.1"
+PyMySQL = "==0.7.11"
 pytz = "==2017.2"
-markdown = "*"
+Markdown = "*"
 djangorestframework = "*"
 tox = "*"
-sphinx = "*"
