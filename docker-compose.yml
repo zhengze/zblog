@@ -24,6 +24,8 @@ services:
         - "8000:8000"
       links:
         - db
+      depends_on:
+        - db
     
     nginx_proxy:
         restart: always
@@ -36,4 +38,5 @@ services:
             - web
         links:
             - web:web
-
+        depends_on:
+            - web
