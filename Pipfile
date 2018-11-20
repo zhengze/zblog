@@ -1,18 +1,14 @@
 [[source]]
-
-url = "https://pypi.python.org/simple"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [dev-packages]
-
 httpie = "*"
 tox = "*"
-
+pylint = "*"
 
 [packages]
-
 Django = "==1.11.2"
 django-webpack-loader = "==0.5.0"
 olefile = "==0.44"
