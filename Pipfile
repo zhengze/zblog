@@ -9,7 +9,7 @@ tox = "*"
 pylint = "*"
 
 [packages]
-Django = "==1.11.2"
+Django = "==2.2.24"
 django-webpack-loader = "==0.5.0"
 olefile = "==0.44"
 Pillow = "==4.1.1"
