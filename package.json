@@ -4,7 +4,7 @@
   "description": "this is a blog.",
   "main": "index.js",
   "dependencies": {
-    "bootstrap": "^4.0.0",
+    "bootstrap": "^4.3.1",
     "expose-loader": "^0.7.5",
     "file-loader": "^1.1.11",
     "popper.js": "^1.14.1"
